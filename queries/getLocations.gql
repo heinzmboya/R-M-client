@@ -1,5 +1,5 @@
-query getLocations($page: Int, $loc_name: String) {
-  locations(page: $page, filter: { name: $loc_name }) {
+query getLocations($page: Int, $name: String) {
+  locations(page: $page, filter: { name: $name }) {
     info {
       count
       pages
