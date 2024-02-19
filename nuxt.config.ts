@@ -6,7 +6,16 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@pinia/nuxt',
     'nuxt-module-eslint-config',
+    '@nuxtjs/apollo',
   ],
+
+  apollo: {
+    clients: {
+      default: {
+        httpEndpoint: 'https://rickandmortyapi.com/graphql',
+      },
+    },
+  },
 
   experimental: {
     payloadExtraction: false,
