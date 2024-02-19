@@ -1,0 +1,24 @@
+query getLocations($page: Int, $loc_name: String) {
+  locations(page: $page, filter: { name: $loc_name }) {
+    info {
+      count
+      pages
+      next
+      prev
+    }
+    results {
+      id
+      name
+      type
+      residents {
+        id
+        name
+        status
+        image
+        gender
+        type
+        species
+      }
+    }
+  }
+}
