@@ -1,10 +1,14 @@
 import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
+  modules: [
+    '@vueuse/nuxt',
+    '@unocss/nuxt',
+    '@pinia/nuxt',
+    'nuxt-module-eslint-config',
+  ],
 
   experimental: {
-    // when using generate, payload js assets included in sw precache manifest
-    // but missing on offline, disabling extraction it until fixed
     payloadExtraction: false,
     typedPages: true,
   },
@@ -19,6 +23,11 @@ export default defineNuxtConfig({
         target: 'esnext',
       },
     },
+    prerender: {
+      crawlLinks: false,
+      routes: ['/'],
+      // ignore: ['/'],
+    },
   },
 
   devtools: {
@@ -28,5 +37,9 @@ export default defineNuxtConfig({
   features: {
     // For UnoCSS
     inlineStyles: false,
+  },
+
+  eslintConfig: {
+    setup: false,
   },
 })
