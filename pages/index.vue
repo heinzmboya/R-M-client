@@ -4,7 +4,7 @@ const store = useStore()
 
 <template>
   <div mx-a w-4xl>
-    pending: {{ !!store.isPending }}
+    pending: {{ !!store.isLoading }}
     <Search />
 
     <section space-y-20>
