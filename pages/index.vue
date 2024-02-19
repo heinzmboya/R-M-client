@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import locationQuery from '~/constants/getLocations.gql'
+import locationQuery from '~/queries/getLocations.gql'
 
 const variables = { page: 1, loc_name: '' }
 const { data = {} } = await useAsyncQuery(locationQuery, variables)
