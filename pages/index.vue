@@ -9,13 +9,13 @@ const store = useStore()
 
     <section space-y-20>
       <div v-for="loc in store.locationData" :key="loc.id">
-        <p text-xs text-gray-700>
-          Location: <span font-bold>{{ loc.name }}</span>
-        </p>
+        <div flex text-lg text-gray-700>
+          <div i-carbon:location-filled /> <span font-bold>{{ loc.name }}</span>
+        </div>
 
         <!-- table of residents -->
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
+          <table class="w-full bg-white/60 text-left text-sm text-gray-500 rtl:text-right">
             <thead class="text-xs text-gray-700">
               <tr>
                 <th scope="col" class="w-100 bg-gray-50 px-6 py-3">
@@ -33,9 +33,21 @@ const store = useStore()
               </tr>
             </thead>
             <tbody>
-              <tr v-for="resident in loc.residents.slice(0, 5)" :key="resident.name" class="border-b border-gray-200">
-                <th scope="row" class="w-100 flex items-center whitespace-nowrap bg-gray-50 px-6 py-4 text-gray-900">
-                  <img class="h-10 w-10 rounded-full" :src="resident.image" alt="image">
+              <tr
+                v-for="resident in loc.residents.slice(0, 5)"
+                :key="resident.id"
+                class="group cursor-pointer border-b border-gray-200 hover:bg-gray-100"
+                @click="navigateTo(`/resident-${resident.id}-${loc.id}`)"
+              >
+                <th
+                  scope="row"
+                  class="w-100 flex items-center whitespace-nowrap bg-gray-50/50 px-6 py-4 text-gray-900 group-hover:bg-gray-100"
+                >
+                  <img
+                    class="h-10 w-10 rounded-full"
+                    :src="resident.image"
+                    alt="image"
+                  >
                   <div class="ps-3">
                     <div class="whitespace-nowrap text-gray-900 font-medium">
                       {{ resident.name }}
@@ -49,7 +61,7 @@ const store = useStore()
                 <td class="px-6 py-4">
                   {{ resident.status }}
                 </td>
-                <td class="bg-gray-50 px-6 py-4">
+                <td class="bg-gray-50 px-6 py-4 group-hover:bg-gray-100">
                   {{ resident.gender }}
                 </td>
                 <td class="px-6 py-4">
