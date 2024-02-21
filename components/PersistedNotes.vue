@@ -25,7 +25,7 @@ function clearNotes() {
     />
     <button
       float-right m-4 text-sm btn
-      :disabled="!notes[residentId]"
+      :disabled="!notes.hasOwnProperty(residentId)"
       @click="clearNotes"
     >
       Clear notes

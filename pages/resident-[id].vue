@@ -10,9 +10,10 @@ const resDetails = computed(() => {
 })
 
 const resident = computed(() => {
-  const location = store.locationData.find(loc => loc.id === resDetails.value.locId)
+  const location = store.locationData.find(loc => loc.id ? loc.id === resDetails.value.locId : loc.name === 'unknown')
+
   const resident = location?.residents
-    .find(res => {
+    .find((res) => {
       return res.id === resDetails.value.resId
     })
 
@@ -29,13 +30,13 @@ const resident = computed(() => {
 <template>
   <div flex justify-center gap-x-5 font-medium>
     <section>
-      <NuxtLink
+      <button
         class="flex items-center gap-x-2 rounded-2xl text-sm btn"
-        to="/"
+        @click="$router.go(-1)"
       >
         <div i-carbon:arrow-left />
         <span>Back</span>
-      </NuxtLink>
+      </button>
     </section>
 
     <template v-if="resident">
