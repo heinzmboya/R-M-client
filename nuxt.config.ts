@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-module-eslint-config',
     '@nuxtjs/apollo',
+    '@nuxt/image',
   ],
 
   apollo: {

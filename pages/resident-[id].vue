@@ -43,7 +43,7 @@ const resident = computed(() => {
       <!-- resident card -->
       <section class="w-96 rounded-2xl bg-white/40 shadow-slate-300/60 shadow-xl">
         <!-- img -->
-        <img class="aspect-video w-96 rounded-t-2xl object-cover object-center" :src="resident.image">
+        <NuxtImg class="aspect-video w-96 rounded-t-2xl object-cover object-center" :src="resident.image" />
         <!-- text information -->
         <div class="p-4">
           <small class="text-xs text-blue-400">{{ resident.species }}</small>
