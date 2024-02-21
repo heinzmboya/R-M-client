@@ -6,3 +6,9 @@ export enum searchOptionsEnum {
   CHARACTER = 'character',
   EPISODE = 'episode',
 }
+
+export const statusColors = {
+  Alive: 'bg-green-500',
+  Dead: 'bg-red-500',
+  unknown: 'bg-gray-500',
+}

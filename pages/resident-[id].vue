@@ -50,8 +50,10 @@ const resident = computed(() => {
           <h1 class="pb-2 text-2xl text-slate-600 font-medium">
             {{ resident.name }}
           </h1>
+          <BaseStatus :status="resident.status" />
+
           <div class="text-sm text-slate-400 font-light leading-6 tracking-tight">
-            <p>{{ resident.id }} - {{ resident.status }} - {{ resident.gender }}</p>
+            <p>{{ resident.id }} - {{ resident.gender }}</p>
 
             <section flex items-center gap-x-2>
               <p i-carbon:location-filled />

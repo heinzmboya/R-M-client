@@ -3,6 +3,7 @@ import { searchOptionsEnum } from '~/constants'
 
 const store = useStore()
 const { searchTerm, onSearch } = toRefs(store)
+const inputRef = ref<HTMLInputElement | null>(null)
 
 const searchOptions = Object.values(searchOptionsEnum)
 const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
@@ -21,10 +22,12 @@ const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
         </div>
         <input
           id="table-search"
+          ref="inputRef"
           v-model="searchTerm"
           type="text"
           class="block w-80 border border-gray-300 rounded-lg bg-gray-50 py-2 ps-10 text-sm text-gray-900 focus:(border-blue-500 outline-none ring-blue-500)"
           placeholder="Search for locations..."
+          @keydown.enter="onSearch(selectedOption)"
         >
       </div>
     </div>
@@ -41,6 +44,7 @@ const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
         <div
           class="flex items-center"
           :title="`Search/filter by ${opt} name`"
+          @click="inputRef?.focus()"
         >
           <input
             :id="opt"
@@ -71,7 +75,7 @@ const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
     <button
       type="button"
       class="me-2 inline-flex items-center border border-gray-200 rounded-lg bg-white px-5 py-2.5 text-center text-sm text-gray-900 font-medium hover:bg-gray-100 focus:(outline-none ring-2 ring-gray-100)"
-      @click="onSearch(selectedOption)"
+      @click="onSearch(selectedOption); inputRef?.focus()"
     >
       Search
     </button>

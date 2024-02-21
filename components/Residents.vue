@@ -4,12 +4,6 @@ const { residents, locationId = 'null' } = defineProps<{
   locationId: string | null // 'unknown' locations have null ids
 }>()
 
-const status = {
-  Alive: 'bg-green-500',
-  Dead: 'bg-red-500',
-  unknown: 'bg-gray-500',
-}
-
 const loadedItemsCount = ref(5)
 
 const displayedResidents = computed(() => {
@@ -70,13 +64,7 @@ function loadMore() {
           </th>
 
           <td class="px-6 py-4 pl-4">
-            <div class="flex items-center">
-              <div
-                class="me-2 h-1.5 w-1.5 rounded-full"
-                :class="status[resident.status]"
-              />
-              {{ resident.status }}
-            </div>
+            <BaseStatus :status="resident.status" />
           </td>
           <td class="bg-gray-50 px-6 py-4 group-hover:bg-gray-100">
             {{ resident.gender }}

@@ -18,7 +18,7 @@ function groupByLocation(arr: any[] = []) {
 export const useStore = defineStore('user', () => {
   const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
 
-  const searchTerm = ref('test')
+  const searchTerm = ref('')
   const queryVariables = reactive({ page: 1, name: searchTerm.value })
 
   const locationRes = useLazyAsyncQuery(locationQuery, queryVariables)
