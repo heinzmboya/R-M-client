@@ -15,3 +15,16 @@
 - 📥 APIs auto importing - for Composition API, VueUse and custom composables.
 
 - TypeScript.
+
+### Run locally
+
+```bash
+# install deps
+pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
+
+# then build
+pnpm build
+
+# and finally start
+pnpm start
+```
