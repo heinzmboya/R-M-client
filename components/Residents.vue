@@ -3,11 +3,19 @@ const { locationId = 'null' } = defineProps<{
   residents: any[]
   locationId: string | null // 'unknown' locations have null ids
 }>()
+
+const status = {
+  Alive: 'bg-green-500',
+  Dead: 'bg-red-500',
+  unknown: 'bg-gray-500',
+}
 </script>
 
 <template>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full bg-white/60 text-left text-sm text-gray-500 rtl:text-right">
+    <table
+      class="w-full bg-white/60 text-left text-sm text-gray-500 rtl:text-right"
+    >
       <thead class="text-xs text-gray-700">
         <tr>
           <th scope="col" class="w-100 bg-gray-50 px-6 py-3">
@@ -50,8 +58,14 @@ const { locationId = 'null' } = defineProps<{
             </div>
           </th>
 
-          <td class="px-6 py-4">
-            {{ resident.status }}
+          <td class="px-6 py-4 pl-4">
+            <div class="flex items-center">
+              <div
+                class="me-2 h-1.5 w-1.5 rounded-full"
+                :class="status[resident.status]"
+              />
+              {{ resident.status }}
+            </div>
           </td>
           <td class="bg-gray-50 px-6 py-4 group-hover:bg-gray-100">
             {{ resident.gender }}
@@ -64,7 +78,3 @@ const { locationId = 'null' } = defineProps<{
     </table>
   </div>
 </template>
-
-<style scoped>
-
-</style>

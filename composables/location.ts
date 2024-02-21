@@ -56,20 +56,14 @@ export const useStore = defineStore('user', () => {
     selectedOption.value = searchOption
   }
 
-  async function onLog() {
-    // eslint-disable-next-line no-console
-    console.log('episodeData.value', locationRes)
-  }
-
   return {
     // states
     searchTerm,
+    isLoading,
     // fns
     onSearch,
-    onLog,
-    // querydata
+    // data
     locationData,
-    isLoading,
   }
 })
 

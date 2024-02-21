@@ -1,5 +1,3 @@
-import { appDescription } from './constants/index'
-
 export default defineNuxtConfig({
   modules: [
     '@vueuse/nuxt',

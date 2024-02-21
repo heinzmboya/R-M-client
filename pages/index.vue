@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const store = useStore()
 
-const { locationData, isLoading, onLog } = toRefs(store)
+const { locationData, isLoading } = toRefs(store)
 </script>
 
 <template>
@@ -9,12 +9,9 @@ const { locationData, isLoading, onLog } = toRefs(store)
     <Loading v-if="isLoading" />
 
     <div mx-a w-4xl>
-      <button btn @click="onLog">
-        Test
-      </button>
       <Search />
 
-      <section v-if="locationData.length" space-y-20>
+      <section v-if="locationData?.length" space-y-20>
         <div v-for="loc in locationData" :key="loc.id">
           <div flex items-center text-lg text-gray-700>
             <div i-carbon:location-filled />

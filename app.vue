@@ -25,4 +25,19 @@ html.dark {
   background: #222;
   color: white;
 }
+
+::-webkit-scrollbar-track {
+  --at-apply: bg-teal-100;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  --at-apply: bg-teal-100;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  --at-apply: from-rose-300 to-teal-400 bg-gradient-to-b;
+}
 </style>

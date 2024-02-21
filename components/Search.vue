@@ -9,7 +9,7 @@ const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
 </script>
 
 <template>
-  <section class="flex items-center gap-x-5 pb-4">
+  <section class="sticky top-0 z-10 flex items-center gap-x-5 py-4 backdrop-blur-lg backdrop-filter">
     <!-- input -->
     <div>
       <label for="table-search" class="sr-only">Search</label>
@@ -24,7 +24,7 @@ const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
           v-model="searchTerm"
           type="text"
           class="block w-80 border border-gray-300 rounded-lg bg-gray-50 py-2 ps-10 text-sm text-gray-900 focus:(border-blue-500 outline-none ring-blue-500)"
-          placeholder="Search for items"
+          placeholder="Search for locations..."
         >
       </div>
     </div>
@@ -38,14 +38,17 @@ const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
         :key="opt"
         class="store.border-gray-200 w-full border-b last:border-r-0 sm:(border-b-0 border-r) hover:bg-gray-50"
       >
-        <div class="flex items-center">
+        <div
+          class="flex items-center"
+          :title="`Search/filter by ${opt} name`"
+        >
           <input
             :id="opt"
             v-model="selectedOption"
             type="radio"
             :value="opt"
             name="list-radio"
-            class="hidden border-gray-300 bg-gray-100 text-blue-600 bbd"
+            class="hidden border-gray-300 bg-gray-100 text-blue-600"
           >
           <label
             :for="opt"
