@@ -10,9 +10,9 @@ const resDetails = computed(() => {
 })
 
 const resident = computed(() => {
-  const location = store.locationData.find((loc: any) => loc.id === resDetails.value.locId)
+  const location = store.locationData.find(loc => loc.id === resDetails.value.locId)
   const resident = location?.residents
-    .find((res: any) => {
+    .find(res => {
       return res.id === resDetails.value.resId
     })
 

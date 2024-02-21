@@ -6,10 +6,7 @@ const { residentId } = defineProps<{
 }>()
 
 // persists in local storage
-const notes: any = useStorage('res-notes', {})
-
-// router.push(`/hi/${encodeURIComponent(name.value)}`)
-// @keydown.enter="go"
+const notes = useStorage('res-notes', {})
 
 function clearNotes() {
   delete notes.value[residentId]

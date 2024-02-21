@@ -1,12 +1,8 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import locationQuery from '~/queries/getLocations.gql'
 import charsQuery from '~/queries/getChars.gql'
-
-enum searchOptionsEnum {
-  LOCATION = 'location',
-  CHARACTER = 'character',
-  EPISODE = 'episode',
-}
+import episodeQuery from '~/queries/getEpisodes.gql'
+import { searchOptionsEnum } from '~/constants'
 
 function groupByLocation(arr: any[] = []) {
   return Object.values(arr.reduce((grouped, item) => {
@@ -20,47 +16,53 @@ function groupByLocation(arr: any[] = []) {
 }
 
 export const useStore = defineStore('user', () => {
-  const searchOptions = Object.values(searchOptionsEnum)
   const selectedOption = ref<searchOptionsEnum>(searchOptionsEnum.LOCATION)
 
   const searchTerm = ref('test')
   const queryVariables = reactive({ page: 1, name: searchTerm.value })
 
-  const { data, refresh, pending: isPending } = useLazyAsyncQuery(locationQuery, queryVariables)
+  const locationRes = useLazyAsyncQuery(locationQuery, queryVariables)
 
-  const { result: charData, load: loadByCharName, refetch: refetchByCharName, loading: isCharFetchPending, ...others } = useLazyQuery(charsQuery, queryVariables)
+  const charsRes = useLazyQuery(charsQuery, queryVariables)
+
+  const episodeRes = useLazyQuery(episodeQuery, queryVariables)
 
   const searchData = computed(() => {
-    const dt = charData.value?.characters?.results
-    return groupByLocation(dt)
-    // return {
-    //   [searchOptionsEnum.LOCATION]: groupByLocation(charData.value?.characters?.results),
-    // }
+    return {
+      [searchOptionsEnum.LOCATION]: {
+        data: locationRes.data.value?.locations?.results,
+        onSearch: locationRes.refresh,
+      },
+      [searchOptionsEnum.CHARACTER]: {
+        data: groupByLocation(charsRes.result.value?.characters?.results),
+        onSearch: charsRes.load || charsRes.refetch,
+      },
+
+      [searchOptionsEnum.EPISODE]: {
+        data: groupByLocation(episodeRes.result.value?.episodes?.results.flatMap(result => result.characters)),
+        onSearch: episodeRes.load || episodeRes.refetch,
+      },
+    }
   })
-  const locationData = computed(() => searchData.value.length ? searchData.value : data.value?.locations?.results || [])
+  const locationData = computed(() => searchData.value[selectedOption.value].data)
 
-  const isLoading = computed(() => isPending.value || isCharFetchPending.value)
+  const isLoading = computed(() => locationRes.pending.value || charsRes.loading.value || episodeRes.loading.value)
 
-  async function onSearch() {
+  async function onSearch(searchOption: searchOptionsEnum) {
     queryVariables.name = searchTerm.value
 
-    if (selectedOption.value === searchOptionsEnum.CHARACTER)
-      return await loadByCharName() || refetchByCharName()
+    await searchData.value[searchOption].onSearch()
 
-    await refresh()
+    selectedOption.value = searchOption
   }
 
   async function onLog() {
     // eslint-disable-next-line no-console
-    console.log('others', others, charData.value, {
-      [searchOptionsEnum.LOCATION]: 'tt',
-    })
+    console.log('episodeData.value', locationRes)
   }
 
   return {
     // states
-    searchOptions,
-    selectedOption,
     searchTerm,
     // fns
     onSearch,
